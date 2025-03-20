@@ -20,6 +20,7 @@ const classifiedAdsSchema = new Schema({
     },
     category: {
         type: String,
+        required: true
     },
 }, {
     timestamps: true
