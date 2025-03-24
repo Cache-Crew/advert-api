@@ -3,7 +3,6 @@ import 'dotenv/config';
 import mongoose from "mongoose";
 
 const database = await mongoose.connect (process.env.MONGO_URI);
-console.log ("database connected")
 
 
 const app = express()
