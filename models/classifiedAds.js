@@ -1,6 +1,6 @@
 import { Schema, model} from "mongoose";
 import normalize from "normalize-mongoose";
-s
+
 const classifiedAdsSchema = new Schema({
     title: { 
         type: String,
