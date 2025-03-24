@@ -1,5 +1,5 @@
 import { AdvertModel } from "../models/classifiedAds.js";
-import { addClassifiedAdValidator } from "../validators/classifiedAds.js";
+import { addClassifiedAdValidator, replaceProductValidator } from "../validators/classifiedAds.js";
 
 export const addClassifiedAd = async (req, res, next) => {
   try {
@@ -50,7 +50,12 @@ export const getAdById = async(req, res, next) => {
 
 export const updateAd = async (req, res, next) => {
     try {
-      const result = await AdvertModel.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+      const {error, value} = replaceProductValidator.validate(req.body);
+  if(error) {
+    return res.status(422).json(error);
+  }
+      const result = await AdvertModel.findByIdAndReplace
+      (req.params.id, value, { new: true, runValidators: true });
       if (!result) {
         return res.status(404).json({ message: 'Advert not found' });
       }

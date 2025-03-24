@@ -13,6 +13,7 @@ const advertRouter = Router();
 advertRouter.post(
     '/classified-ads',
     isAuthenticated,
+    isAuthorized("vendor"),
     classifiedAdPicturesUpload.array('pictures', 3), 
     addClassifiedAd);
 
