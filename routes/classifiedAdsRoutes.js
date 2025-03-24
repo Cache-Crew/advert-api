@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { addClassifiedAd, deleteAd, getAllAds, updateAd, getAdById } from "../controllers/classifiedAdsControllers.js";
 import { classifiedAdPicturesUpload } from "../middlewares/uploads.js";
-import { isAuthenticated } from "../middlewares/auth.js";
+import { isAuthenticated, isAuthorized } from "../middlewares/auth.js";
 
 // create a classified ads router
 const advertRouter = Router();
@@ -21,9 +21,9 @@ advertRouter.get('/ads', getAllAds);
 
 advertRouter.get('/ads/:id', getAdById);  
 
-advertRouter.patch('/ads/:id', isAuthenticated, updateAd);
+advertRouter.put('/ads/:id', isAuthenticated, isAuthorized("vendor"),classifiedAdPicturesUpload.array('pictures', 3), updateAd);
 
-advertRouter.delete('/ads/:id', isAuthenticated, deleteAd);
+advertRouter.delete('/ads/:id', isAuthenticated,isAuthorized("vendor"), deleteAd);
 
 // export router
 export default advertRouter;
