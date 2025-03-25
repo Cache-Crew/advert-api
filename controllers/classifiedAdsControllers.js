@@ -1,5 +1,6 @@
 import { AdvertModel } from "../models/classifiedAds.js";
 import { addClassifiedAdValidator, replaceProductValidator } from "../validators/classifiedAds.js";
+import mongoose from "mongoose";
 
 export const addClassifiedAd = async (req, res, next) => {
   try {
