@@ -20,6 +20,7 @@ const classifiedAdsSchema = new Schema({
     },
     category: {
         type: String,
+        enum: ["Electronics", "Home & Kitchen", "Vehicles", "Real Estate", "Beauty Supplies"],
         required: true
     },
 }, {
