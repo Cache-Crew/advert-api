@@ -1,6 +1,7 @@
 import express from "express";
 import 'dotenv/config';
 import mongoose from "mongoose";
+import cors from "cors";
 import userRoutes from "./routes/user-routes.js";
 import advertRouter from "./routes/classifiedAdsRoutes.js";
 
@@ -9,6 +10,7 @@ const database = await mongoose.connect (process.env.MONGO_URI);
 
 const app = express()
 app.use (express.json())
+app.use(cors())
 
 app.use(userRoutes)
 app.use(advertRouter);
