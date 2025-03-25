@@ -50,21 +50,35 @@ export const getAdById = async(req, res, next) => {
 
 export const updateAd = async (req, res, next) => {
     try {
-      const {error, value} = replaceProductValidator.validate(req.body);
-  if(error) {
-    return res.status(422).json(error);
-  }
-      const result = await AdvertModel.findOneAndReplace
-      (req.params.id, value, { new: true, runValidators: true });
-      if (!result) {
-        return res.status(404).json({ message: 'Advert not found' });
-      }
-      res.status(201).json(result `Advert ${result.title} updated!`); 
-    }
-    catch (error) {
-      next(error);
+        // Validate input
+        const { error, value } = replaceProductValidator.validate(req.body);
+        if (error) {
+            return res.status(422).json({ message: error.details[0].message });
+        }
+
+        // Convert ID to ObjectId
+        const adId = new mongoose.Types.ObjectId(req.params.id);
+
+        // Replace the document
+        const result = await AdvertModel.findOneAndReplace(
+            { _id: adId },   // Corrected: Pass as an object
+            value,
+            { new: true, runValidators: true }
+        );
+
+        if (!result) {
+            return res.status(404).json({ message: "Advert not found" });
+        }
+
+        res.status(200).json({
+            message: `Advert "${result.title}" updated successfully!`,
+            advert: result,
+        });
+    } catch (error) {
+        next(error);
     }
 };
+
   
 export const deleteAd = async(req, res, next) => {
     try {
