@@ -54,7 +54,7 @@ export const updateAd = async (req, res, next) => {
   if(error) {
     return res.status(422).json(error);
   }
-      const result = await AdvertModel.findByIdAndReplace
+      const result = await AdvertModel.findOneAndReplace
       (req.params.id, value, { new: true, runValidators: true });
       if (!result) {
         return res.status(404).json({ message: 'Advert not found' });
