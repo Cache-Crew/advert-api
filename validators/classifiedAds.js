@@ -5,7 +5,7 @@ export const addClassifiedAdValidator = Joi.object({
     price: Joi.number().required(),
     description: Joi.string().required(),
     pictures: Joi.array().items(Joi.string()),
-    category: Joi.string().required(),
+    category: Joi.string().required().valid("Electronics", "Home & Kitchen", "Vehicles", "Real Estate", "Beauty Supplies"),
 })
 
 export const replaceProductValidator = Joi.object({
@@ -13,5 +13,5 @@ export const replaceProductValidator = Joi.object({
     price: Joi.number().required(),
     description: Joi.string().required(),
     pictures: Joi.array().items(Joi.string()),
-    category: Joi.string().required(),
+    category: Joi.string().required().valid("Electronics", "Home & Kitchen", "Vehicles", "Real Estate", "Beauty Supplies"),
 })
