@@ -66,7 +66,28 @@ export const loginUser =async (req,res, next) => {
     process.env.JWT_SECRET_KEY,
     {expiresIn : "24h"}
   );
-  res.status(200).json({accessTokenLogin})
+  res.status(200).json({
+    accessTokenLogin,
+    user: {
+      role: user.role,
+      email: user.email,
+      userId: user.id
+    },
+  });
 };
 
+
+export const getAuthenticatedUser = async (req, res, next) => {
+  try {
+    const user = await UserModel.findById(req.auth.id).select({
+      password: false
+    })
+    if(!user) {
+      return res.status(404).json({error: "User not found"})
+    }
+    res.status(200).json(user)
+  } catch (error) {
+    next(error)
+  }
+}
 
